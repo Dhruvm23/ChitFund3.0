@@ -47,10 +47,34 @@ MetaMask → **Anvil Local** (chain ID **31337**).
 
 ## Host frontend (Vercel)
 
-1. Push to GitHub
-2. [vercel.com](https://vercel.com) → import repo → root directory **`frontend`**
-3. Env vars from `frontend/.env.local.example`
-4. Users connect MetaMask to **Sepolia**
+**Live:** [https://chitfund3-0.vercel.app](https://chitfund3-0.vercel.app)
+
+Project: `dhruvm23s-projects/chitfund3-0` on [vercel.com](https://vercel.com)
+
+### Already deployed via CLI
+
+If you need to redeploy:
+
+```bash
+cd frontend && npx vercel deploy --prod
+```
+
+### Connect GitHub (one-time, in dashboard)
+
+1. [vercel.com/dhruvm23s-projects/chitfund3-0/settings/git](https://vercel.com/dhruvm23s-projects/chitfund3-0/settings/git) → Connect **Dhruvm23/ChitFund3.0**
+2. **Settings → General → Root Directory** → set to `frontend`
+3. Env vars (Production) — should already be set:
+
+| Variable | Value |
+|----------|--------|
+| `NEXT_PUBLIC_CHAIN_ID` | `11155111` |
+| `NEXT_PUBLIC_FACTORY_ADDRESS` | `0x31a8abfc1d3fad5e4d48c34e86eaa7762bad41e3` |
+| `NEXT_PUBLIC_MOCK_USDC_ADDRESS` | `0xc22eabfbe2da302b8b161e0c0b86299d6ce91003` |
+| `NEXT_PUBLIC_RPC_URL` | `https://ethereum-sepolia-rpc.publicnode.com` |
+| `NEXT_PUBLIC_GITHUB_URL` | `https://github.com/Dhruvm23/ChitFund3.0` |
+
+4. Paste the Vercel URL into GitHub repo **About → Website**
+5. Users connect MetaMask to **Sepolia**
 
 ---
 

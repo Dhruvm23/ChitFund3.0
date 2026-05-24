@@ -4,6 +4,8 @@
 
 Built for **ETHGlobal New Delhi 2026** · Live on **Ethereum Sepolia**
 
+**Live demo:** [chitfund3-0.vercel.app](https://chitfund3-0.vercel.app)
+
 [![Solidity](https://img.shields.io/badge/Solidity-0.8.24-363636?logo=solidity)](./contracts)
 [![Foundry](https://img.shields.io/badge/Foundry-41%20tests%20passing-brightgreen)](./contracts)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](./frontend)
