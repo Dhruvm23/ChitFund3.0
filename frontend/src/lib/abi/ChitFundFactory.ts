@@ -1,0 +1,63 @@
+export const FACTORY_ABI = [
+  {
+    type: "function",
+    name: "createGroup",
+    inputs: [
+      { name: "token", type: "address" },
+      { name: "contributionAmount", type: "uint256" },
+      { name: "memberCount", type: "uint256" },
+      { name: "roundDurationSeconds", type: "uint256" },
+      { name: "maxDiscountBps", type: "uint256" },
+    ],
+    outputs: [{ name: "groupAddress", type: "address" }],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "getAllGroups",
+    inputs: [],
+    outputs: [{ name: "", type: "address[]" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getActiveGroups",
+    inputs: [],
+    outputs: [{ name: "", type: "address[]" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getGroupsByOrganizer",
+    inputs: [{ name: "organizer", type: "address" }],
+    outputs: [{ name: "", type: "address[]" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getGroupCount",
+    inputs: [],
+    outputs: [{ name: "", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "isRegisteredGroup",
+    inputs: [{ name: "", type: "address" }],
+    outputs: [{ name: "", type: "bool" }],
+    stateMutability: "view",
+  },
+  {
+    type: "event",
+    name: "GroupCreated",
+    inputs: [
+      { name: "group", type: "address", indexed: true },
+      { name: "organizer", type: "address", indexed: true },
+      { name: "token", type: "address", indexed: false },
+      { name: "contributionAmount", type: "uint256", indexed: false },
+      { name: "memberCount", type: "uint256", indexed: false },
+      { name: "roundDuration", type: "uint256", indexed: false },
+      { name: "maxDiscountBps", type: "uint256", indexed: false },
+    ],
+  },
+] as const;
