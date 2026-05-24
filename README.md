@@ -1,30 +1,28 @@
-# ChitChain
+# ChitFund3.0
 
-**On-chain chit fund protocol on Polygon — trustless rotating savings with sealed-bid auctions.**
+**On-chain chit fund protocol — trustless rotating savings with sealed-bid auctions.**
 
-Built for **ETHGlobal New Delhi 2026**
+Built for **ETHGlobal New Delhi 2026** · Live on **Ethereum Sepolia**
 
 [![Solidity](https://img.shields.io/badge/Solidity-0.8.24-363636?logo=solidity)](./contracts)
 [![Foundry](https://img.shields.io/badge/Foundry-41%20tests%20passing-brightgreen)](./contracts)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](./frontend)
-[![Polygon](https://img.shields.io/badge/Polygon-Amoy-8247E5?logo=polygon)](https://amoy.polygonscan.com)
+[![Sepolia](https://img.shields.io/badge/Ethereum-Sepolia-627EEA?logo=ethereum)](https://sepolia.etherscan.io)
 
 ---
 
+## Live contracts (Sepolia)
+
+| Contract | Address |
+|----------|---------|
+| MockUSDC | [`0xc22e...1003`](https://sepolia.etherscan.io/address/0xc22eabfbe2da302b8b161e0c0b86299d6ce91003) |
+| ChitFundFactory | [`0x31a8...41e3`](https://sepolia.etherscan.io/address/0x31a8abfc1d3fad5e4d48c34e86eaa7762bad41e3) |
+
 ## What it is
 
-**ChitChain** is a Web3 protocol that digitizes the chit fund — a ₹50,000+ crore community savings model in India. Members pool USDC each round; one member wins the pot via **commit–reveal auction**; the winner's discount is split as **dividends** to the group.
+**ChitFund3.0** is a Web3 protocol that digitizes the chit fund — community savings where members pool USDC, bid in **commit–reveal auctions**, and share the winner's discount as **dividends**.
 
-No foreman. No opaque cash handling. Rules enforced by smart contract.
-
-## Problem → Solution
-
-| Traditional chit fund | ChitChain |
-|----------------------|-----------|
-| Foreman holds cash | Smart contract holds USDC |
-| Rigged / secret auctions | **Commit–reveal** bids on-chain |
-| Trust-based dividends | **Automatic** dividend math |
-| Local, cash-only | **Wallet + stablecoin**, global access |
+No foreman. Rules enforced by smart contract.
 
 ## How a round works
 
@@ -32,86 +30,38 @@ No foreman. No opaque cash handling. Rules enforced by smart contract.
 CONTRIBUTION → COMMIT → REVEAL → DISTRIBUTION
 ```
 
-1. **Contribute** — members deposit USDC for the round  
-2. **Commit** — sealed bid hash (discount % hidden)  
-3. **Reveal** — bids opened; **highest discount wins** the pot  
-4. **Distribute** — winner paid; discount split as dividends  
-
-**Example:** 5 members × $100 = $500 pot. Winner bids 20% discount → $100 shared → **$20 dividend each**.
-
-## Architecture
-
-```mermaid
-graph TD
-    User([Member Wallet]) -->|Deposit USDC| CF[ChitFund Contract]
-    User -->|commitBid hash| CF
-    User -->|revealBid + salt| CF
-    CF -->|Highest discount| Auction{Auction}
-    Auction -->|Payout| Winner([Winner])
-    Auction -->|dividendBalance| Members([All Members])
-    Factory[ChitFundFactory] -->|createGroup| CF
-```
-
 ## Tech stack
 
 | Layer | Stack |
 |-------|--------|
-| **Contracts** | Solidity 0.8.24, Foundry, OpenZeppelin |
-| **Frontend** | Next.js 16, Tailwind, Wagmi v2, RainbowKit |
-| **Network** | Polygon Amoy (80002) · local Anvil for dev |
-| **Token** | MockUSDC (6 decimals, public faucet) |
+| Contracts | Solidity 0.8.24, Foundry, OpenZeppelin |
+| Frontend | Next.js 16, Tailwind, Wagmi v2, RainbowKit |
+| Network | Ethereum Sepolia · Anvil local for dev |
 
 ## Quick start
 
-### Tests
-
 ```bash
+# Tests
 cd contracts && forge test -vvv
-```
 
-### Local demo (no testnet tokens)
-
-```bash
-./scripts/deploy-local.sh   # starts Anvil, deploys, writes frontend/.env.local
+# Run against live Sepolia deployment
 cd frontend && npm install && npm run dev
+# MetaMask → Sepolia, connect 0x2F96...1AfC
+
+# Local dev (optional)
+./scripts/deploy-local.sh
 ```
 
-Import Anvil accounts into MetaMask (chain ID **31337**). See **[DEPLOY.md](./DEPLOY.md)** for full E2E testing.
-
-### Amoy testnet
-
-```bash
-./scripts/deploy-amoy.sh
-```
+Full guide: **[DEPLOY.md](./DEPLOY.md)** · Portfolio copy: **[PORTFOLIO.md](./PORTFOLIO.md)**
 
 ## Project structure
 
 ```
-ChitChain/
-├── contracts/          # Solidity (ChitFund, Factory, MockUSDC)
-├── frontend/           # Next.js dApp
-├── scripts/            # deploy-local, deploy-amoy, skip-phase, bid CLI
-├── DEPLOY.md           # Deploy & test guide
-└── PORTFOLIO.md        # Case study copy for your website
+ChitFund3.0/
+├── contracts/     # Solidity
+├── frontend/      # Next.js dApp
+└── scripts/       # deploy-sepolia, deploy-local, skip-phase
 ```
-
-## Test coverage
-
-- **41 Foundry tests** including fuzz + full multi-round E2E  
-- ~81% line coverage (`ChitFund.sol`, `ChitFundFactory.sol`)
-
-## Portfolio / demo
-
-- **Case study copy:** [PORTFOLIO.md](./PORTFOLIO.md)  
-- **Record a 2–3 min demo:** create group → join → commit → reveal → claim  
-- **Deploy frontend:** Vercel + Amoy env vars for a live “Try it” link  
-
-## Roadmap
-
-- [ ] Gnosis Safe multisig governance  
-- [ ] ENS member identities  
-- [ ] Polygon mainnet + real USDC  
-- [ ] Verified contracts on Polygonscan  
 
 ## License
 

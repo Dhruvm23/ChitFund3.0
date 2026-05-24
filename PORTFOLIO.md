@@ -1,4 +1,4 @@
-# ChitChain — Portfolio Case Study
+# ChitFund3.0 — Portfolio Case Study
 
 Use this on your personal website project page.
 
@@ -6,11 +6,11 @@ Use this on your personal website project page.
 
 ## Title
 
-**ChitChain** — On-Chain Chit Fund Protocol
+**ChitFund3.0** — On-Chain Chit Fund Protocol
 
 ## Tagline
 
-Trustless rotating savings on Polygon. Sealed-bid auctions. Automatic dividends.
+Trustless rotating savings on Ethereum Sepolia. Sealed-bid auctions. Automatic dividends.
 
 ## One-liner
 
@@ -35,13 +35,13 @@ There was no trustless, transparent on-chain equivalent.
 
 ## Solution
 
-**ChitChain** deploys each savings group as its own smart contract:
+**ChitFund3.0** deploys each savings group as its own smart contract:
 
 - Members join by depositing **USDC**
 - Each round: **contribute → commit → reveal → distribute**
 - **Commit–reveal** prevents bid front-running
 - Winner receives pot minus discount; discount split equally as **dividends**
-- Full history verifiable on Polygonscan
+- Full history verifiable on Etherscan
 
 ---
 
@@ -63,13 +63,13 @@ There was no trustless, transparent on-chain equivalent.
 
 **DevOps**
 
-- Local Anvil deploy script, Amoy deploy script, phase skip helper for testing
+- Local Anvil deploy script, Sepolia deploy script, phase skip helper for testing
 
 ---
 
 ## Demo flow (what to show in a video)
 
-1. Deploy / connect to local or Amoy
+1. Deploy / connect to local Anvil or Sepolia
 2. Create a 5-member group
 3. Five wallets join (faucet → approve → join)
 4. Group activates → Commit phase → each wallet seals a bid
@@ -81,7 +81,7 @@ There was no trustless, transparent on-chain equivalent.
 
 ## Tech stack (for project card)
 
-Solidity · Foundry · OpenZeppelin · Next.js · TypeScript · Wagmi · RainbowKit · Polygon · USDC · Web3
+Solidity · Foundry · OpenZeppelin · Next.js · TypeScript · Wagmi · RainbowKit · Ethereum Sepolia · USDC · Web3
 
 ---
 
@@ -89,20 +89,20 @@ Solidity · Foundry · OpenZeppelin · Next.js · TypeScript · Wagmi · Rainbow
 
 | Link | URL |
 |------|-----|
-| GitHub | `https://github.com/YOUR_USERNAME/ChitChain` |
+| GitHub | `https://github.com/Dhruvm23/ChitFund3.0` |
 | Live demo | Vercel URL (optional) |
 | Demo video | YouTube / Loom |
-| Contracts | Polygonscan Amoy |
+| Contracts | [Sepolia Etherscan](https://sepolia.etherscan.io/address/0x31a8abfc1d3fad5e4d48c34e86eaa7762bad41e3) |
 
 ---
 
 ## Suggested website project card
 
 ```
-ChitChain
-On-chain chit fund protocol — sealed-bid auctions & automatic dividends on Polygon
+ChitFund3.0
+On-chain chit fund protocol — sealed-bid auctions & automatic dividends on Ethereum Sepolia
 
-Tags: Web3 · Solidity · Foundry · Next.js · DeFi · Polygon
+Tags: Web3 · Solidity · Foundry · Next.js · DeFi · Ethereum Sepolia
 
 [GitHub] [Live Demo] [Case Study]
 ```

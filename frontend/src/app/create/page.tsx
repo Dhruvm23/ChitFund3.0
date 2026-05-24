@@ -26,11 +26,11 @@ export default function CreateGroupPage() {
 
   const handleCreate = () => {
     writeContract({
-      address: CONTRACTS.polygonAmoy.factory,
+      address: CONTRACTS.factory,
       abi: FACTORY_ABI,
       functionName: "createGroup",
       args: [
-        CONTRACTS.polygonAmoy.mockUSDC,
+        CONTRACTS.mockUSDC,
         BigInt(contribution * 1e6),
         BigInt(memberCount),
         BigInt(roundDurationSeconds),

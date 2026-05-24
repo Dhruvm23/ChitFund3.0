@@ -4,7 +4,7 @@ import { useReadContract } from "wagmi";
 import { FACTORY_ABI } from "@/lib/abi/ChitFundFactory";
 import { CONTRACTS } from "@/lib/addresses";
 
-const FACTORY_ADDRESS = CONTRACTS.polygonAmoy.factory;
+const FACTORY_ADDRESS = CONTRACTS.factory;
 
 export function useAllGroups() {
   const result = useReadContract({

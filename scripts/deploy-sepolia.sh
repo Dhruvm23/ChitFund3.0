@@ -17,17 +17,17 @@ if [[ -n "${PRIVATE_KEY:-}" && "$PRIVATE_KEY" != 0x* ]]; then
   export PRIVATE_KEY="0x$PRIVATE_KEY"
 fi
 
-GAS_PRICE="${GAS_PRICE:-25000000000}"  # 25 gwei — avoids spikes on Amoy
+SEPOLIA_RPC="${SEPOLIA_RPC_URL:-https://ethereum-sepolia-rpc.publicnode.com}"
+CHAIN_ID=11155111
 
-echo "==> Deploying ChitFund3 to Polygon Amoy (gas price: $GAS_PRICE wei)..."
+echo "==> Deploying ChitFund3.0 to Ethereum Sepolia..."
 forge script script/Deploy.s.sol \
-  --rpc-url "${POLYGON_AMOY_RPC_URL:-https://rpc-amoy.polygon.technology}" \
+  --rpc-url "$SEPOLIA_RPC" \
   --private-key "$PRIVATE_KEY" \
-  --with-gas-price "$GAS_PRICE" \
   --broadcast \
-  ${POLYGONSCAN_API_KEY:+--verify --etherscan-api-key "$POLYGONSCAN_API_KEY"}
+  ${ETHERSCAN_API_KEY:+--verify --etherscan-api-key "$ETHERSCAN_API_KEY"}
 
-RUN_JSON="broadcast/Deploy.s.sol/80002/run-latest.json"
+RUN_JSON="broadcast/Deploy.s.sol/${CHAIN_ID}/run-latest.json"
 
 if [ ! -f "$RUN_JSON" ]; then
   echo "Deployment broadcast not found at $RUN_JSON"
@@ -52,17 +52,19 @@ console.log(t?.contractAddress||'');
 
 ENV_FILE="$ROOT/frontend/.env.local"
 cat > "$ENV_FILE" <<EOF
+NEXT_PUBLIC_CHAIN_ID=$CHAIN_ID
 NEXT_PUBLIC_FACTORY_ADDRESS=$FACTORY
 NEXT_PUBLIC_MOCK_USDC_ADDRESS=$MOCK_USDC
-NEXT_PUBLIC_DEMO_GROUP_ADDRESS=
-NEXT_PUBLIC_RPC_URL=${POLYGON_AMOY_RPC_URL:-https://rpc-amoy.polygon.technology}
+NEXT_PUBLIC_RPC_URL=$SEPOLIA_RPC
 EOF
 
 echo ""
-echo "=== Deployment complete ==="
+echo "=== Sepolia deployment complete ==="
 echo "MockUSDC:  $MOCK_USDC"
 echo "Factory:   $FACTORY"
+echo "Chain ID:  $CHAIN_ID"
 echo ""
 echo "Wrote $ENV_FILE"
 echo "Add NEXT_PUBLIC_WC_PROJECT_ID to .env.local for WalletConnect."
+echo "MetaMask → Ethereum Sepolia (chain ID 11155111)"
 echo "Create a group at http://localhost:3000/create after npm run dev"

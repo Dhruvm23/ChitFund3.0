@@ -1,81 +1,76 @@
-# ChitChain — Deploy & Test Guide
+# ChitFund3.0 — Deploy & Test Guide
 
-## Step 1: Contract tests (local)
+## Production testnet — Ethereum Sepolia
 
-```bash
-cd contracts
-forge test -vvv
-forge coverage
-```
+**Live deployment (your wallet `0x2F96...1AfC`):**
 
-All **41 tests** should pass.
+| Contract | Address |
+|----------|---------|
+| MockUSDC | `0xc22eabfbe2da302b8b161e0c0b86299d6ce91003` |
+| ChitFundFactory | `0x31a8abfc1d3fad5e4d48c34e86eaa7762bad41e3` |
 
-## Step 2: Deploy to Polygon Amoy
+Explorer: [sepolia.etherscan.io](https://sepolia.etherscan.io)
 
-1. Get testnet MATIC: https://faucet.polygon.technology
-2. Get Polygonscan API key: https://polygonscan.com/apis
-3. Copy env file:
+### Run the app
 
 ```bash
-cp contracts/.env.example contracts/.env
-# Edit contracts/.env with your PRIVATE_KEY and POLYGONSCAN_API_KEY
+cd frontend && npm run dev
 ```
 
-4. Deploy:
+MetaMask → **Ethereum Sepolia** (chain ID **11155111**).
+
+`frontend/.env.local` is already configured from deploy.
+
+### Redeploy (if needed)
 
 ```bash
-chmod +x scripts/deploy-amoy.sh
-./scripts/deploy-amoy.sh
+cp contracts/.env.example contracts/.env   # PRIVATE_KEY + ETHERSCAN_API_KEY
+./scripts/deploy-sepolia.sh
 ```
 
-This writes `frontend/.env.local` with contract addresses.
+Needs ~0.02 Sepolia ETH. Faucets: [Alchemy](https://www.alchemy.com/faucets/ethereum-sepolia) · [Google Cloud](https://cloud.google.com/application/web3/faucet/ethereum/sepolia)
 
-5. Add WalletConnect project ID to `frontend/.env.local`:
+---
+
+## Local development — Anvil
+
+For fast testing with `./scripts/skip-phase.sh` (no waiting for phase timers):
 
 ```bash
-# https://cloud.walletconnect.com
-NEXT_PUBLIC_WC_PROJECT_ID=your_project_id
+./scripts/deploy-local.sh
+cd frontend && npm run dev
 ```
 
-## Step 3: Run frontend
+MetaMask → **Anvil Local** (chain ID **31337**).
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+---
 
-Open http://localhost:3000 — connect MetaMask to **Polygon Amoy** (chain ID 80002).
+## Host frontend (Vercel)
 
-## Step 4: Manual E2E testnet walkthrough
+1. Push to GitHub
+2. [vercel.com](https://vercel.com) → import repo → root directory **`frontend`**
+3. Env vars from `frontend/.env.local.example`
+4. Users connect MetaMask to **Sepolia**
 
-Use **two wallets** (or one wallet + a friend):
+---
 
-| Step | Action | Where |
-|------|--------|-------|
-| 1 | Faucet MockUSDC | Call `faucet(yourAddress, amount)` on MockUSDC via Polygonscan |
-| 2 | Create group | `/create` → Deploy |
-| 3 | Join group | `/group/[address]` → Approve + Join (wallet 2) |
-| 4 | Fill group | Repeat join until members full → group activates |
-| 5 | Advance phase | Wait for timer OR warp time on test; click "Advance Phase" after deadline |
-| 6 | Commit bid | Commit phase → slider → Lock in Bid |
-| 7 | Reveal bid | Reveal phase → Reveal My Bid (salt in localStorage) |
-| 8 | Claim dividend | Distribution → Claim Dividend |
+## E2E test flow (Sepolia)
 
-## Step 5: Push to GitHub
+| Step | Action |
+|------|--------|
+| 1 | Connect deployer wallet |
+| 2 | `/create` → deploy group |
+| 3 | Other wallets: Sepolia ETH + **Get Test USDC (Faucet)** on join page |
+| 4 | Approve → Join → Commit → Reveal → Claim dividend |
+| 5 | Wait for phase timers (no skip on public testnet) |
 
-```bash
-git init
-git add .
-git commit -m "ChitFund3: trustless chit fund on Polygon"
-git remote add origin https://github.com/YOUR_USERNAME/ChitFund3.git
-git push -u origin main
-```
+---
 
-## Step 6: Vercel (optional)
+## Scripts
 
-```bash
-cd frontend
-vercel
-# Add all NEXT_PUBLIC_* env vars in Vercel dashboard
-```
+| Script | Purpose |
+|--------|---------|
+| `deploy-sepolia.sh` | Deploy to Sepolia (public demo) |
+| `deploy-local.sh` | Deploy to Anvil (local dev) |
+| `skip-phase.sh` | Fast-forward time (Anvil only) |
+| `bid.sh` | CLI commit/reveal (optional) |

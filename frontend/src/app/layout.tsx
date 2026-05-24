@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { getExplorerUrl } from "@/lib/network";
+import { DEFAULT_CHAIN_ID } from "@/lib/addresses";
 import { Navbar } from "@/components/Navbar";
 
 const inter = Inter({
@@ -10,15 +12,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ChitChain — On-Chain Chit Fund Protocol",
+  title: "ChitFund3.0 — On-Chain Chit Fund Protocol",
   description:
-    "Web3 protocol for trustless rotating savings on Polygon. Commit-reveal auctions, USDC pools, and automatic dividend distribution.",
+    "Web3 protocol for trustless rotating savings on Ethereum Sepolia. Commit-reveal auctions, USDC pools, and automatic dividend distribution.",
   keywords: [
-    "ChitChain",
+    "ChitFund3.0",
     "chit fund",
     "Web3",
     "DeFi",
-    "Polygon",
+    "Ethereum",
+    "Sepolia",
     "USDC",
     "smart contract",
     "commit-reveal",
@@ -26,9 +29,9 @@ export const metadata: Metadata = {
     "India",
   ],
   openGraph: {
-    title: "ChitChain — On-Chain Chit Fund Protocol",
+    title: "ChitFund3.0 — On-Chain Chit Fund Protocol",
     description:
-      "India's oldest savings institution, rebuilt trustless on-chain with Polygon.",
+      "India's oldest savings institution, rebuilt trustless on-chain with Ethereum Sepolia.",
     type: "website",
   },
 };
@@ -61,17 +64,17 @@ export default function RootLayout({
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-                      <span className="text-sm font-bold">CC</span>
+                      <span className="text-xs font-bold">3.0</span>
                     </div>
                     <span className="text-sm text-gray-400">
-                      ChitChain — On-chain savings on Polygon
+                      ChitFund3.0 — On-chain savings on Ethereum Sepolia
                     </span>
                   </div>
                   <div className="flex items-center gap-6 text-sm text-gray-500">
                     <a
                       href={
                         process.env.NEXT_PUBLIC_GITHUB_URL ||
-                        "https://github.com/dhruvmehra/ChitChain"
+                        "https://github.com/Dhruvm23/ChitFund3.0"
                       }
                       target="_blank"
                       rel="noopener noreferrer"
@@ -80,12 +83,12 @@ export default function RootLayout({
                       GitHub
                     </a>
                     <a
-                      href="https://amoy.polygonscan.com"
+                      href={getExplorerUrl(DEFAULT_CHAIN_ID)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-purple-400 transition-colors"
                     >
-                      Polygonscan
+                      Explorer
                     </a>
                     <span>Built for ETHGlobal India 🇮🇳</span>
                   </div>

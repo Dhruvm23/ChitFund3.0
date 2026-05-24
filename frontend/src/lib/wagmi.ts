@@ -1,16 +1,11 @@
 import { http } from "wagmi";
-import { polygonAmoy } from "wagmi/chains";
+import { sepolia } from "wagmi/chains";
 import { defineChain, type Chain } from "viem";
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 
-const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID || 80002);
-const isLocal = chainId === 31337;
+const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID || 11155111);
 
-/**
- * Must match MetaMask network name + RPC exactly.
- * Using wagmi's built-in "localhost" chain triggers "Add Localhost" popup
- * which conflicts with a manually added "Anvil Local" network.
- */
+/** Local dev only — use ./scripts/deploy-local.sh */
 export const anvilLocal = defineChain({
   id: 31337,
   name: "Anvil Local",
@@ -20,16 +15,24 @@ export const anvilLocal = defineChain({
   },
 });
 
-const rpcUrl =
-  process.env.NEXT_PUBLIC_RPC_URL ||
-  (isLocal ? "http://127.0.0.1:8545" : "https://rpc-amoy.polygon.technology");
+const DEFAULT_RPC: Record<number, string> = {
+  31337: "http://127.0.0.1:8545",
+  11155111: "https://ethereum-sepolia-rpc.publicnode.com",
+};
 
-const activeChainConfig: Chain = isLocal ? anvilLocal : polygonAmoy;
+function resolveChain(id: number): Chain {
+  if (id === 31337) return anvilLocal;
+  return sepolia;
+}
+
+const activeChainConfig = resolveChain(chainId);
+const isLocal = chainId === 31337;
+const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || DEFAULT_RPC[chainId] || DEFAULT_RPC[11155111];
 
 export const config = getDefaultConfig({
-  appName: "ChitChain",
+  appName: "ChitFund3.0",
   projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID || "demo-project-id",
-  chains: isLocal ? ([anvilLocal] as const) : ([polygonAmoy] as const),
+  chains: [activeChainConfig],
   transports: {
     [activeChainConfig.id]: http(rpcUrl),
   },

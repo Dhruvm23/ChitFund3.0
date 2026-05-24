@@ -13,10 +13,10 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 transition-shadow">
-            <span className="text-sm font-bold text-white">CC</span>
+            <span className="text-xs font-bold text-white">3.0</span>
           </div>
           <span className="text-lg font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-            ChitChain
+            ChitFund3.0
           </span>
         </Link>
 

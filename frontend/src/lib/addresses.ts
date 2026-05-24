@@ -11,15 +11,12 @@ function parseAddress(value: string | undefined): `0x${string}` {
 }
 
 export const CONTRACTS = {
-  polygonAmoy: {
-    factory: parseAddress(process.env.NEXT_PUBLIC_FACTORY_ADDRESS),
-    mockUSDC: parseAddress(process.env.NEXT_PUBLIC_MOCK_USDC_ADDRESS),
-    demoGroup: parseAddress(process.env.NEXT_PUBLIC_DEMO_GROUP_ADDRESS),
-  },
+  factory: parseAddress(process.env.NEXT_PUBLIC_FACTORY_ADDRESS),
+  mockUSDC: parseAddress(process.env.NEXT_PUBLIC_MOCK_USDC_ADDRESS),
 } as const;
 
-export const DEFAULT_CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID || 80002);
+export const DEFAULT_CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID || 11155111);
 
 export function contractsDeployed(): boolean {
-  return CONTRACTS.polygonAmoy.factory !== zero;
+  return CONTRACTS.factory !== zero;
 }

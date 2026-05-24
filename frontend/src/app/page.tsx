@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useActiveGroups } from "@/hooks/useGroupList";
 import { GroupCard } from "@/components/GroupCard";
+import { getNetworkName } from "@/lib/network";
+import { DEFAULT_CHAIN_ID } from "@/lib/addresses";
 
 export default function HomePage() {
   const { data: groups, isLoading } = useActiveGroups();
@@ -16,7 +18,7 @@ export default function HomePage() {
           <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-1.5 mb-8 animate-fade-in">
             <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
             <span className="text-xs font-medium text-purple-300 uppercase tracking-wider">
-              Live on Polygon Amoy
+              Live on {getNetworkName(DEFAULT_CHAIN_ID)}
             </span>
           </div>
 
@@ -35,7 +37,7 @@ export default function HomePage() {
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-delay">
-            ChitChain replaces the human foreman with an immutable smart
+            ChitFund3.0 replaces the human foreman with an immutable smart
             contract. Commit-reveal auctions. Transparent dividends. Zero trust
             required.
           </p>
@@ -46,7 +48,7 @@ export default function HomePage() {
               Create a Group
             </Link>
             <a
-              href={process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/dhruvmehra/ChitChain"}
+              href={process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/Dhruvm23/ChitFund3.0"}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary px-8 py-4 text-lg flex items-center gap-2"
@@ -76,9 +78,9 @@ export default function HomePage() {
               <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">
                 Protocol
               </p>
-              <p className="stat-value">ChitChain</p>
+              <p className="stat-value">ChitFund3.0</p>
               <p className="text-sm text-gray-400 mt-1">
-                On Polygon
+                On Ethereum Sepolia
               </p>
             </div>
             <div className="stat-card text-center">

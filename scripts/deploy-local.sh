@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Deploy ChitFund3 to local Anvil — NO testnet tokens needed.
+# Deploy ChitFund3.0 to local Anvil — NO testnet tokens needed.
 # Perfect when Amoy faucets are blocked.
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -50,7 +50,6 @@ cat > "$ENV_FILE" <<EOF
 NEXT_PUBLIC_CHAIN_ID=31337
 NEXT_PUBLIC_FACTORY_ADDRESS=$FACTORY
 NEXT_PUBLIC_MOCK_USDC_ADDRESS=$MOCK_USDC
-NEXT_PUBLIC_DEMO_GROUP_ADDRESS=
 NEXT_PUBLIC_RPC_URL=$ANVIL_RPC
 EOF
 

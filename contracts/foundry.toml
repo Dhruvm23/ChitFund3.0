@@ -18,8 +18,7 @@ quote_style = "double"
 tab_width = 4
 
 [rpc_endpoints]
-polygon_amoy = "${POLYGON_AMOY_RPC_URL}"
-polygon = "${POLYGON_RPC_URL}"
+sepolia = "${SEPOLIA_RPC_URL}"
 
 [etherscan]
-polygon_amoy = { key = "${POLYGONSCAN_API_KEY}", url = "https://api-amoy.polygonscan.com/api" }
+sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=11155111" }

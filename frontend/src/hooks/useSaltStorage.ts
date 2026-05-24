@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 
-const SALT_PREFIX = "chitchain_salt_";
+const SALT_PREFIX = "chitfund3_salt_";
 
 function storageKey(groupAddress: string, roundNumber: number, userAddress?: string) {
   const base = `${SALT_PREFIX}${groupAddress.toLowerCase()}_${roundNumber}`;
